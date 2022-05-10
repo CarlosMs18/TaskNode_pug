@@ -2,12 +2,14 @@
 const express = require('express')
 const session = require('express-session')
 const flash  =require('connect-flash')
-
+const passport = require('./config/passport')
 const bodyParser = require('body-parser')
+
+
 const db = require('./config/db')
+
+
 const authRoutes = require('./routes/auth')
-
-
 const app = express()
 app.use(express.static('public'))
 app.set('view engine','pug')
@@ -21,9 +23,18 @@ app.use(session({
     resave : false,
     saveUninitialized :false
 }))
+
+
+app.use(passport.initialize())
+app.use(passport.session())
+
 app.use(flash())
 
+app.use((req,res, next) => {
+    res.locals.mensajes = req.flash()
 
+    next()
+})
 
 
 

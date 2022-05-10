@@ -1,12 +1,13 @@
 const db = require('../config/db')
 const Sequelize = require('sequelize')
+const bcryptjs = require('bcryptjs')
 
 
 const Usuarios = db.define('usuarios',{
     id :{
         type:Sequelize.INTEGER,
         primaryKey : true,
-        allowNull : false
+        autoIncrement : true
     },
     email : {
         type : Sequelize.STRING,
@@ -37,9 +38,21 @@ const Usuarios = db.define('usuarios',{
     active : {
         type : Sequelize.INTEGER,
         defaultValue : 0
+    },
+    token : Sequelize.STRING,
+    expiration : Sequelize.STRING
+},{
+    hooks: {
+        beforeCreate(usuario){
+           
+            usuario.password = bcryptjs.hashSync(usuario.password, bcryptjs.genSaltSync(10))
+        }
     }
 })
 
+Usuarios.prototype.verificarPassword = function(password){
+    return bcryptjs.compareSync(password, this.password)
+}
 
 
 module.exports = Usuarios
