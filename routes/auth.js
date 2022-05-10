@@ -1,5 +1,7 @@
 const authController = require('../controllers/auth')
+
 const Router = require('express')
+const { route } = require('./proyects')
 
 const router = Router()
 
@@ -12,4 +14,6 @@ router.get('/signin',authController.formSignIn)
 
 
 router.post('/signin',authController.postSignIn)
+
+router.get('/signoff',authController.signOff)
 module.exports = router

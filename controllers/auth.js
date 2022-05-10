@@ -42,8 +42,9 @@ exports.postSignUp = async(req, res, next) => {
 
 
 exports.formSignIn = (req, res , next) => {
+    console.log(res.locals.usuario)
     const {correcto} = res.locals.mensajes
-   
+    
     res.render('auth/signin',{
         pageTitle : 'Sign In',
 
@@ -59,3 +60,10 @@ exports.postSignIn = passport.authenticate('local',{
     badRequestMessage: 'Ambos Campos son Obligatorios'
 
 })
+
+
+exports.signOff = (req, res) => {
+        req.session.destroy(() => {
+            res.redirect('/auth/signin')
+        })
+}

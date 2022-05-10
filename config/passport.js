@@ -25,7 +25,7 @@ passport.use(
 
                 return done(null, usuario)
             }catch(error){
-                return(null, false,{
+                return done(null, false,{
                     message : 'Esta cuenta no existe'
                 })
             }
