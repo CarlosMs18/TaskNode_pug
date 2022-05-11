@@ -9,11 +9,16 @@ html(lang="en")
         main.contenedor
             aside.contenedor-proyectos
                 .panel.crear-proyecto
-                    a(href="/nuevo-proyecto" class="boton") Nuevo Proyecto
+                    a(href="/new-proyect" class="boton") Nuevo Proyecto
                         span +
                 .panel.lista-proyectos
                     h2 Proyectos
                     ul#proyectos.proyectos
+                        if(proyects.length)
+                            each proyect in proyects
+                                li 
+                                    a(href=`/proyect/${proyect.url}`)= proyect.nombre
+                        
             block contenido
 
         script(src="/dist/bundle.js")  

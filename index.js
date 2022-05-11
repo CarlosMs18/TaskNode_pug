@@ -12,6 +12,9 @@ const db = require('./config/db')
 const authRoutes = require('./routes/auth')
 const proyectRoutes = require('./routes/proyects')
 
+
+const errorController = require('./controllers/error')
+
 const app = express()
 app.use(express.static('public'))
 app.set('view engine','pug')
@@ -43,7 +46,28 @@ app.use((req,res, next) => {
 app.use('/auth',authRoutes)
 app.use('/',proyectRoutes)
 
-require('./models/usuarios')
+
+app.use(errorController.get404)
+
+
+app.use((error, req, res, next) => {
+    // res.status(error.httpStatusCode).render(...);
+    // res.redirect('/500');
+    res.status(500).render('500', {
+        pageTitle: 'Error!',
+        user :req.user
+    });
+  });
+
+
+
+const Proyects = require('./models/proyects')
+const Usuarios = require('./models/usuarios')
+const Tareas = require('./models/tareas')
+Usuarios.hasMany(Proyects)
+Tareas.belongsTo(Proyects)
+/* Proyects.hasOne(Usuarios) */
+
 db.sync()
         .then(result => {
             console.log('Conectado al servidor!')

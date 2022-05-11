@@ -4,6 +4,7 @@ const slug = require('slug')
 const Sequelize = require('sequelize')
 
 
+
 const Proyects = db.define('proyectos',{
     id:{
         type : Sequelize.INTEGER,
@@ -22,5 +23,6 @@ const Proyects = db.define('proyectos',{
     }
 })
 
+/* Proyects.hasOne(Usuarios) */
 
 module.exports = Proyects

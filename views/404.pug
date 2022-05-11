@@ -1,0 +1,10 @@
+<doctype html
+html(lang="en")
+    head
+        include partials/headers
+    body 
+        header.barra
+            h1 UpTask - Administrador de Proyectos
+            if  user
+                a(href="/auth/signoff") Cerrar Sesión
+        h1 404, Page Not Found !

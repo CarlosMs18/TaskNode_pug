@@ -1,0 +1,11 @@
+extends ../layout
+
+include ../mixins/createProyect
+
+block contenido   
+    .contenido-principal
+        h1 #{pageTitle}
+
+        if errores
+            .alerta= errores
+        +createProyect

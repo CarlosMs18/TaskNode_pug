@@ -1,0 +1,15 @@
+extends ../layout
+
+block contenido
+    .contenido-principal
+        h1 #{pageTitle}
+
+            if errores
+                .alerta= errores
+        form.agregar-tarea(action=`/proyect/${proyect.url}` method="POST")
+            .campo
+               label(for="tarea") Tarea:
+               input.nombre-tarea(type="text" name="tarea" placeholder="Nombre Tarea")
+            .campo.enviar
+                input.boton.nueva-tarea(type="submit" value="Agregar")
+
