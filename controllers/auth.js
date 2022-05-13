@@ -31,16 +31,25 @@ exports.postSignUp = async(req, res, next) => {
         })
 
         //create url to confirm email
+        const confirmarUrl= `http://${req.headers.host}/auth/confirm/${email}`
 
-        
         //create object user
+
+        const usuario = {
+            email
+        }
 
 
         //send mail
-
+        await enviarEmail.enviar({
+        usuario,
+        subject: 'Confirmar tu cuenta de Uptask',
+        confirmarUrl,
+        archivo: 'confirmar-cuenta'
+    })
         // redirect user
 
-        req.flash('correcto','El usuario se creo correctamente')
+        req.flash('correcto','Enviamos un correo, confirma tu cuenta')
       
         res.redirect('/auth/signin')
 
@@ -188,4 +197,24 @@ exports.resetNewPassword = async(req, res , next) =>{
     } catch (error) {
         next(error)
     }
+}
+
+
+
+exports.confirmEmail = async(req, res , next) => {
+   const email = req.params.email
+   
+   const usuario = await Usuarios.findOne({
+       where : {email}
+   })
+
+   if(!usuario){
+       req.flash('error','No valido!')
+       return res.redirect('/auth/signup')
+   }
+  
+   usuario.active =  1
+   await usuario.save()
+   req.flash('correcto', 'Cuenta activada correctamente');
+   res.redirect('/auth/signin')
 }

@@ -29,4 +29,7 @@ router.post('/reset/:token',[
     .not().isEmpty()
     .isLength({min : 5})
 ],authController.resetNewPassword)
+
+
+router.get('/confirm/:email',authController.confirmEmail)
 module.exports = router
