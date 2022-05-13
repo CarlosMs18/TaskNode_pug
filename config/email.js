@@ -1,6 +1,6 @@
  module.exports = {
-     user : 'bea27c9c81c4fc',
-     pass : 'db6d242a5f5063',
-     host : 'smtp.mailtrap.io',
-     port :'2525'
+     user : process.env.USER_NODEMAILER,
+     pass : process.env.PASS_NODEMAILER,
+     host : process.env.HOST_NODEMAILER,
+     port :process.env.PORT_NODEMAILER 
  }
