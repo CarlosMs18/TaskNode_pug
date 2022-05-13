@@ -66,7 +66,7 @@ const Usuarios = require('./models/usuarios')
 const Tareas = require('./models/tareas')
 Usuarios.hasMany(Proyects)
 Tareas.belongsTo(Proyects)
-/* Proyects.hasOne(Usuarios) */
+
 
 db.sync()
         .then(result => {

@@ -133,10 +133,60 @@ exports.postEditProyect = async(req, res , next) => {
         } catch (error) {
             next(error)
         }
-
-       
-
-
-
      
+}
+
+
+exports.deleteProyect = async(req, res , next) => {
+    const url = req.params.url
+    const usuarioId = res.locals.usuario.id
+    const proyecto =await Proyects.findOne({
+       where:{
+        url,
+        usuarioId
+       }
+    })
+
+    if(!proyecto){
+        return next(error)
+    }
+
+    await proyecto.destroy()
+
+    res.status(200).send('Proyecto se elimino correctamente')
+}
+
+
+exports.patchTask = async(req, res, next) => {
+    const idTarea = req.params.taskId
+    const tarea = await Tareas.findByPk(idTarea)
+
+    if(!tarea){
+        return next(error)
+    }
+
+    let estado = 0
+    if(tarea.estado === estado){
+        estado  = 1
+    }
+    tarea.estado = estado
+    await tarea.save()
+    
+    await tarea.save()
+    res.status(200).send('Ok , Actualizado correctamente')
+    
+}
+
+exports.deleteTask = async(req, res , next) => {
+    const idTarea = req.params.taskId
+    const tarea = await Tareas.findByPk(idTarea)
+
+    if(!tarea){
+        return next(error)
+    }
+
+    await tarea.destroy()
+
+    res.status(200).send('Tarea Eliminada Correctamente');
+    
 }

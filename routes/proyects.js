@@ -39,4 +39,12 @@ router.post('/new-proyect/:proyectId',isAuth,[
     .not().isEmpty().trim().escape()
     .isLength({min : 5})
 ],proyectController.postEditProyect)
+
+
+router.delete('/proyects/:url',isAuth,proyectController.deleteProyect)
+
+router.patch('/task/:taskId',isAuth,proyectController.patchTask)
+
+
+router.delete('/task/:taskId', isAuth,proyectController.deleteTask)
 module.exports = router

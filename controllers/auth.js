@@ -29,7 +29,7 @@ exports.postSignUp = async(req, res, next) => {
             email,
             password
         })
-
+        console.log('1')
         //create url to confirm email
         const confirmarUrl= `http://${req.headers.host}/auth/confirm/${email}`
 
@@ -56,6 +56,7 @@ exports.postSignUp = async(req, res, next) => {
 
         
     } catch (error) {  
+        console.log(error)
         req.flash('error',error.errors.map(e => e.message))
        
         res.render('auth/signup',{
