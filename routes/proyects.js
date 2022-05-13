@@ -15,7 +15,7 @@ router.get('/new-proyect',isAuth,proyectController.formNewProyect)
 router.post('/new-proyect',isAuth,[
     check('nombre','El proyecto debe de tener un minimo de 5 caracteres')
     .not().isEmpty().trim().escape()
-    .isLength({min : 8})
+    .isLength({min : 5})
 ],proyectController.createProyect)
 
 
@@ -27,4 +27,16 @@ router.post('/proyect/:url',isAuth,[
     .isLength({min : 4})
 ],taskController.createTask)
 
+
+router.get('/proyect/edit/:proyectId',isAuth,proyectController.formeditProyect)
+
+
+/* router.get('/new-proyect/:proyectId',isAuth , proyectController.postEditProyect) */
+
+
+router.post('/new-proyect/:proyectId',isAuth,[
+    check('nombre','El proyecto debe de tener un minimo de 5 caracteres')
+    .not().isEmpty().trim().escape()
+    .isLength({min : 5})
+],proyectController.postEditProyect)
 module.exports = router

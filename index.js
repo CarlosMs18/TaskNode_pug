@@ -75,3 +75,4 @@ db.sync()
         })
         .catch(err => console.log(err))
 
+require('./handlers/email')

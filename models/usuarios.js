@@ -44,7 +44,7 @@ const Usuarios = db.define('usuarios',{
 },{
     hooks: {
         beforeCreate(usuario){
-           
+            
             usuario.password = bcryptjs.hashSync(usuario.password, bcryptjs.genSaltSync(10))
         }
     }
